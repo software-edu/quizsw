@@ -59,7 +59,7 @@ public class AssuntoDAO implements DAO<Assunto> {
 			
 			PreparedStatement pstmt = connection.prepareStatement("UPDATE assunto (cd_assunto, nm_assunto, cd_assunto_superior)"
 																+ " VALUES (?, ?, ?)");
-			pstmt.setInt(1, Conexao.getCode("assunto"));
+			pstmt.setInt(1, obj.getCdAssunto());
 			pstmt.setString(2, obj.getNmAssunto());
 			pstmt.setInt(3, obj.getCdAssuntoSuperior());
 			
@@ -149,7 +149,6 @@ public class AssuntoDAO implements DAO<Assunto> {
 		return select(null, connection);
 	}
 
-	@Override
 	public Assunto get(int cdAssunto) {
 		return get(cdAssunto, null);
 	}

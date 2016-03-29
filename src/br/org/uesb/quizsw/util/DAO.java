@@ -15,6 +15,5 @@ public interface DAO<T> {
 	public int delete(T obj);
 	public ResultSet select(String criterias);
 	public ResultSet selectAll();
-	public T get(int cd);
 
 }
