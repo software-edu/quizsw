@@ -36,6 +36,12 @@ public class RespostaDAO implements DAO<Resposta> {
 		return null;
 	}
 
+	@Override
+	public Resposta get(int cd) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 
 }

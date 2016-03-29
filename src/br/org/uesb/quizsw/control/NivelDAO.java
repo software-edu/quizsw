@@ -36,6 +36,12 @@ public class NivelDAO implements DAO<Nivel> {
 		return null;
 	}
 
+	@Override
+	public Nivel get(int cd) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 
 }

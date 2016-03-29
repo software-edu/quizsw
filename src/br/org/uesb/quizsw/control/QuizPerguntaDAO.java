@@ -36,6 +36,12 @@ public class QuizPerguntaDAO implements DAO<QuizPergunta> {
 		return null;
 	}
 
+	@Override
+	public QuizPergunta get(int cd) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 
 }
