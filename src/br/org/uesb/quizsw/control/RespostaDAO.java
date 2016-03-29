@@ -24,9 +24,8 @@ public class RespostaDAO implements DAO<Resposta> {
 			
 			PreparedStatement pstmt = connection.prepareStatement("INSERT INTO resposta (cd_pergunta, cd_resposta, txt_resposta, lg_correto, blb_imagem)"
 																+ " VALUES (?, ?, ?, ?, ?)");
-			//TODO: gerar chave composta
 			pstmt.setInt(1, obj.getCdPergunta());
-			pstmt.setInt(2, obj.getCdResposta());
+			pstmt.setInt(2, getCode(obj.getCdPergunta(), connection));
 			pstmt.setString(3, obj.getTxtResposta());
 			pstmt.setInt(4, obj.getLgCorreto());
 			pstmt.setBytes(5, obj.getBlbImagem());
@@ -186,6 +185,23 @@ public class RespostaDAO implements DAO<Resposta> {
 		}
 	}
 
-	
+	private static synchronized int getCode(int cdPergunta, Connection connection) {
+    	int code = 0;
+    	try {
+    		PreparedStatement pstmt = connection.prepareStatement("SELECT MAX(cd_resposta) FROM resposta"
+    															+ " WHERE cd_pergunta="+cdPergunta);
+    		ResultSet rs = pstmt.executeQuery();
+    		
+    		if(rs.next()) {
+    			code = 1 + rs.getInt("cd_resposta");
+    		}
+    		
+    		return code;
+    		
+    	} catch(Exception e) {
+    		e.printStackTrace(System.err);
+    		return -1;
+    	}
+    }
 
 }
