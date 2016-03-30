@@ -2,9 +2,5 @@ telas do sistema
 
 teste do git de Luiza
 
-Eu posso editar normalmente qualquer arquivo do projeto
 
-=D
- 
- Pode mostrar?
  
