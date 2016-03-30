@@ -1,13 +1,12 @@
 package br.org.uesb.quizsw.view;
 
-import java.awt.BorderLayout;
+
 import java.awt.EventQueue;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import java.awt.Toolkit;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JList;
@@ -66,7 +65,7 @@ public class Janela_Cadastro_Quiz extends JFrame {
 		lblErros.setBounds(116, 80, 46, 14);
 		contentPane.add(lblErros);
 		
-		JList listPerguntas = new JList();
+		JList<String> listPerguntas = new JList<String>();//não sei qual o tipo ainda
 		listPerguntas.setBounds(20, 226, 351, -92);
 		contentPane.add(listPerguntas);
 		
