@@ -43,7 +43,7 @@ public class Janela_Inicio extends JFrame {
 	public Janela_Inicio() {
 		setResizable(false);
 		setUndecorated(true);//retira barra de titulos
-		setIconImage(new ImageIcon(getClass().getResource("/resources/BioGame_Icon.png")).getImage());
+		setIconImage(new ImageIcon(getClass().getResource("/img/BioGame_Icon.png")).getImage());
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 575, 417);
 		
@@ -92,7 +92,7 @@ public class Janela_Inicio extends JFrame {
 		contentPane.add(btnIniciar);
 		
 		JLabel lblLogoGame = new JLabel("");
-		lblLogoGame.setIcon( new ImageIcon(getClass().getResource("/resources/BioGame_Logo1.png")));
+		lblLogoGame.setIcon( new ImageIcon(getClass().getResource("/img/BioGame_Logo1.png")));
 		lblLogoGame.setBounds(138, 64, 325, 142);
 		contentPane.add(lblLogoGame);
 	}
