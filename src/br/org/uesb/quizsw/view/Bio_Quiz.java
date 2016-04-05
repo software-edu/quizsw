@@ -36,7 +36,7 @@ public class Bio_Quiz extends JFrame implements ActionListener {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);		
 		janela = new JFrame();
 		janela.getContentPane().setLayout(null);		
-		janela.setIconImage(new ImageIcon(getClass().getResource("/resources/BioGame_Icon.png")).getImage());
+		janela.setIconImage(new ImageIcon(getClass().getResource("/images/BioGame_Icon.png")).getImage());
 		
 		 
 	    //janela.setLocationRelativeTo(null); //centraliza a tela, antes de mostrar

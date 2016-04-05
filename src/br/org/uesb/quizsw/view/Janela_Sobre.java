@@ -34,7 +34,7 @@ public class Janela_Sobre extends JFrame {
 	 */
 	public Janela_Sobre() {
 		setTitle("Sobre");
-		setIconImage(new ImageIcon(getClass().getResource("/resources/BioGame_Icon.png")).getImage());
+		setIconImage(new ImageIcon(getClass().getResource("/images/BioGame_Icon.png")).getImage());
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();

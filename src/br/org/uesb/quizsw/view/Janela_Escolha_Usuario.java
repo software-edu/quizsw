@@ -35,7 +35,7 @@ public class Janela_Escolha_Usuario extends JFrame {
 	 * Create the frame.
 	 */
 	public Janela_Escolha_Usuario() {
-		setIconImage(new ImageIcon(getClass().getResource("/resources/BioGame_Icon.png")).getImage());
+		setIconImage(new ImageIcon(getClass().getResource("/images/BioGame_Icon.png")).getImage());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -44,7 +44,7 @@ public class Janela_Escolha_Usuario extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblLogo_Login = new JLabel("");
-		lblLogo_Login.setIcon( new ImageIcon(getClass().getResource("/resources/BioGame_Logo1.png")));	
+		lblLogo_Login.setIcon( new ImageIcon(getClass().getResource("/images/BioGame_Logo1.png")));	
 		lblLogo_Login.setBounds(83, 11, 284, 101);
 		contentPane.add(lblLogo_Login);
 		

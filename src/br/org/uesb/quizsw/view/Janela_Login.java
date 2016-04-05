@@ -39,7 +39,7 @@ public class Janela_Login extends JFrame {
 	 * Create the frame.
 	 */
 	public Janela_Login() {
-		setIconImage(new ImageIcon(getClass().getResource("/resources/BioGame_Icon.png")).getImage());
+		setIconImage(new ImageIcon(getClass().getResource("/images/BioGame_Icon.png")).getImage());
 		setTitle("BIO GAME - Perfil");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

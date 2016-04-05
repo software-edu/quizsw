@@ -53,7 +53,7 @@ public class Janela_Cadastro_Quiz extends JFrame {
 	 */
 	public Janela_Cadastro_Quiz() {
 		
-		//setIconImage(new ImageIcon(getClass().getResource("/resources/BioGame_Icon.png")).getImage());
+		setIconImage(new ImageIcon(getClass().getResource("/images/BioGame_Icon.png")).getImage());
 		setTitle("Cadastro - Quiz");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 526, 401);
@@ -94,7 +94,7 @@ public class Janela_Cadastro_Quiz extends JFrame {
 				}
 			}
 		});
-		btnAdicionarPerguntas.setBounds(438, 190, 46, 22);
+		btnAdicionarPerguntas.setBounds(430, 190, 46, 22);
 		contentPane.add(btnAdicionarPerguntas);
 		
 		JScrollPane spListaPerguntas = new JScrollPane();
