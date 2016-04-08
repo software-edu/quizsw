@@ -22,12 +22,13 @@ public class QuizDAO implements DAO<Quiz> {
 				connection.setAutoCommit(false);
 			}
 			
-			PreparedStatement pstmt = connection.prepareStatement("INSERT INTO quiz (cd_quiz, nm_quiz, qtd_tempo, qtd_erro)"
-																+ " VALUES (?, ?, ?, ?)");
+			PreparedStatement pstmt = connection.prepareStatement("INSERT INTO quiz (cd_quiz, nm_quiz, qtd_tempo, qtd_erro, blb_imagem)"
+																+ " VALUES (?, ?, ?, ?, ?)");
 			pstmt.setInt(1, Conexao.getCode("quiz"));
 			pstmt.setString(2, obj.getNmQuiz());
 			pstmt.setInt(3, obj.getQtdTempo());
 			pstmt.setInt(4, obj.getQtdErro());
+			pstmt.setBytes(5, obj.getBlbImagem());
 			
 			pstmt.executeUpdate();
 			if(isConnectionNull)
@@ -58,12 +59,13 @@ public class QuizDAO implements DAO<Quiz> {
 				connection.setAutoCommit(false);
 			}
 			
-			PreparedStatement pstmt = connection.prepareStatement("UPDATE quiz (cd_quiz, nm_quiz, qtd_tempo, qtd_erro)"
-																+ " VALUES (?, ?, ?, ?)");
+			PreparedStatement pstmt = connection.prepareStatement("UPDATE quiz (cd_quiz, nm_quiz, qtd_tempo, qtd_erro, blb_imagem)"
+																+ " VALUES (?, ?, ?, ?, ?)");
 			pstmt.setInt(1, obj.getCdQuiz());
 			pstmt.setString(2, obj.getNmQuiz());
 			pstmt.setInt(3, obj.getQtdTempo());
 			pstmt.setInt(4, obj.getQtdErro());
+			pstmt.setBytes(5, obj.getBlbImagem());
 			
 			pstmt.executeUpdate();
 			if(isConnectionNull)
@@ -166,7 +168,11 @@ public class QuizDAO implements DAO<Quiz> {
 
 			Quiz quiz = null;
 			if(rs.next()) {
-				quiz = new Quiz(rs.getInt("cd_quiz"), rs.getString("nm_quiz"), rs.getInt("qtd_tempo"), rs.getInt("qtd_erro"));
+				quiz = new Quiz(rs.getInt("cd_quiz"), 
+						rs.getString("nm_quiz"), 
+						rs.getInt("qtd_tempo"), 
+						rs.getInt("qtd_erro"),
+						rs.getBytes("blb_imagem"));
 			}
 			
 			return quiz;

@@ -22,10 +22,11 @@ public class QuizPerguntaDAO implements DAO<QuizPergunta> {
 				connection.setAutoCommit(false);
 			}
 			
-			PreparedStatement pstmt = connection.prepareStatement("INSERT INTO quiz_pergunta (cd_quiz, cd_pergunta)"
-																+ " VALUES (?, ?)");
+			PreparedStatement pstmt = connection.prepareStatement("INSERT INTO quiz_pergunta (cd_quiz, cd_pergunta, nr_ordem)"
+																+ " VALUES (?, ?, ?)");
 			pstmt.setInt(1, obj.getCdQuiz());
 			pstmt.setInt(2, obj.getCdPergunta());
+			pstmt.setInt(3, obj.getNrOrdem());
 			
 			pstmt.executeUpdate();
 			if(isConnectionNull)
@@ -56,10 +57,11 @@ public class QuizPerguntaDAO implements DAO<QuizPergunta> {
 				connection.setAutoCommit(false);
 			}
 			
-			PreparedStatement pstmt = connection.prepareStatement("UPDATE quiz_pergunta (cd_quiz, cd_pergunta)"
-																+ " VALUES (?, ?)");
+			PreparedStatement pstmt = connection.prepareStatement("UPDATE quiz_pergunta (cd_quiz, cd_pergunta, nr_ordem)"
+																+ " VALUES (?, ?, ?)");
 			pstmt.setInt(1, obj.getCdQuiz());
 			pstmt.setInt(2, obj.getCdPergunta());
+			pstmt.setInt(3, obj.getNrOrdem());
 			
 			pstmt.executeUpdate();
 			if(isConnectionNull)
@@ -163,7 +165,7 @@ public class QuizPerguntaDAO implements DAO<QuizPergunta> {
 
 			QuizPergunta quizPergunta = null;
 			if(rs.next()) {
-				quizPergunta = new QuizPergunta(rs.getInt("cd_quiz"), rs.getInt("cd_pergunta"));
+				quizPergunta = new QuizPergunta(rs.getInt("cd_quiz"), rs.getInt("cd_pergunta"), rs.getInt("nr_ordem"));
 			}
 			
 			return quizPergunta;

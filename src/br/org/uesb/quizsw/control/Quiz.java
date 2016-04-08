@@ -6,17 +6,19 @@ public class Quiz {
 	private String nmQuiz;
 	private int qtdTempo;
 	private int qtdErro;
+	private byte[] blbImagem;
 	
 	public Quiz() {
 		super();
 	}
 
-	public Quiz(int cdQuiz, String nmQuiz, int qtdTempo, int qtdErro) {
+	public Quiz(int cdQuiz, String nmQuiz, int qtdTempo, int qtdErro, byte[] blbImagem) {
 		super();
 		this.cdQuiz = cdQuiz;
 		this.nmQuiz = nmQuiz;
 		this.qtdTempo = qtdTempo;
 		this.qtdErro = qtdErro;
+		this.blbImagem = blbImagem;
 	}
 
 	public int getCdQuiz() {
@@ -49,6 +51,14 @@ public class Quiz {
 
 	public void setQtdErro(int qtdErro) {
 		this.qtdErro = qtdErro;
+	}
+
+	public byte[] getBlbImagem() {
+		return blbImagem;
+	}
+
+	public void setBlbImagem(byte[] blbImagem) {
+		this.blbImagem = blbImagem;
 	}
 	
 	
