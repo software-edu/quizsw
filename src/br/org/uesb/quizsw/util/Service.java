@@ -10,9 +10,10 @@ import java.util.HashMap;
  * @author Maurício
  */
 
-public interface Service {
+public interface Service<T> {
 	
 	public Result save(HashMap<String, Object> content);
+	public Result remove(T object, boolean cascade);
 	public ResultSet find(String criterios);
 	public ResultSet getAll();
 

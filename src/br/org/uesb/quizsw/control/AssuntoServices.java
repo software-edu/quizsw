@@ -6,10 +6,16 @@ import java.util.HashMap;
 import br.org.uesb.quizsw.util.Result;
 import br.org.uesb.quizsw.util.Service;
 
-public class AssusntoServices implements Service {
+public class AssuntoServices implements Service<Assunto> {
 
 	@Override
 	public Result save(HashMap<String, Object> content) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Result remove(Assunto object, boolean cascade) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -25,5 +31,7 @@ public class AssusntoServices implements Service {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 
 }
