@@ -140,15 +140,6 @@ public class AssuntoDAO implements DAO<Assunto> {
 		}
 	}
 
-	@Override
-	public ResultSet selectAll() {
-		return selectAll(null);
-	}
-	
-	public ResultSet selectAll(Connection connection) {
-		return select(null, connection);
-	}
-
 	public Assunto get(int cdAssunto) {
 		return get(cdAssunto, null);
 	}

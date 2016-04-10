@@ -145,15 +145,6 @@ public class RespostaDAO implements DAO<Resposta> {
 		}
 	}
 
-	@Override
-	public ResultSet selectAll() {
-		return selectAll(null);
-	}
-	
-	public ResultSet selectAll(Connection connection) {
-		return select(null, connection);
-	}
-
 	public Resposta get(int cdPergunta, int cdResposta) {
 		return get(cdPergunta, cdResposta, null);
 	}

@@ -7,14 +7,14 @@ import java.sql.ResultSet;
 import br.org.uesb.quizsw.util.Conexao;
 import br.org.uesb.quizsw.util.DAO;
 
-public class PerguntaDAO implements DAO<Pergunta> {
+public class UsuarioDAO implements DAO<Usuario> {
 
 	@Override
-	public int insert(Pergunta obj) {
+	public int insert(Usuario obj) {
 		return insert(obj, null);
 	}
 	
-	public int insert(Pergunta obj, Connection connection) {
+	public int insert(Usuario obj, Connection connection) {
 		boolean isConnectionNull = connection==null;
 		try {
 			if(isConnectionNull) {
@@ -22,12 +22,12 @@ public class PerguntaDAO implements DAO<Pergunta> {
 				connection.setAutoCommit(false);
 			}
 			
-			PreparedStatement pstmt = connection.prepareStatement("INSERT INTO pergunta (cd_pergunta, txt_pergunta, cd_assunto, cd_nivel)"
+			PreparedStatement pstmt = connection.prepareStatement("INSERT INTO usuario (cd_usuario, nm_login, nm_senha, tp_permissao)"
 																+ " VALUES (?, ?, ?, ?)");
-			pstmt.setInt(1, Conexao.getCode("pergunta"));
-			pstmt.setString(2, obj.getTxtPergunta());
-			pstmt.setInt(3, obj.getCdAssunto());
-			pstmt.setInt(4, obj.getCdNivel());
+			pstmt.setInt(1, Conexao.getCode("usuario"));
+			pstmt.setString(2, obj.getNmLogin());
+			pstmt.setString(3, obj.getNmSenha());
+			pstmt.setInt(4, obj.getTpPermissao());
 			
 			pstmt.executeUpdate();
 			if(isConnectionNull)
@@ -46,11 +46,11 @@ public class PerguntaDAO implements DAO<Pergunta> {
 	}
 
 	@Override
-	public int update(Pergunta obj) {
+	public int update(Usuario obj) {
 		return update(obj, null);
 	}
 	
-	public int update(Pergunta obj, Connection connection) {
+	public int update(Usuario obj, Connection connection) {
 		boolean isConnectionNull = connection==null;
 		try {
 			if(isConnectionNull) {
@@ -58,12 +58,12 @@ public class PerguntaDAO implements DAO<Pergunta> {
 				connection.setAutoCommit(false);
 			}
 			
-			PreparedStatement pstmt = connection.prepareStatement("UPDATE pergunta (cd_pergunta, txt_pergunta, cd_assunto, cd_nivel)"
+			PreparedStatement pstmt = connection.prepareStatement("UPDATE usuario (cd_usuario, nm_login, nm_senha, tp_permissao)"
 																+ " VALUES (?, ?, ?, ?)");
-			pstmt.setInt(1, obj.getCdPergunta());
-			pstmt.setString(2, obj.getTxtPergunta());
-			pstmt.setInt(3, obj.getCdAssunto());
-			pstmt.setInt(3, obj.getCdNivel());
+			pstmt.setInt(1, obj.getCdUsuario());
+			pstmt.setString(2, obj.getNmLogin());
+			pstmt.setString(3, obj.getNmSenha());
+			pstmt.setInt(3, obj.getTpPermissao());
 			
 			pstmt.executeUpdate();
 			if(isConnectionNull)
@@ -82,11 +82,11 @@ public class PerguntaDAO implements DAO<Pergunta> {
 	}
 
 	@Override
-	public int delete(Pergunta obj) {
+	public int delete(Usuario obj) {
 		return delete(obj, null);
 	}
 	
-	public int delete(Pergunta obj, Connection connection) {
+	public int delete(Usuario obj, Connection connection) {
 		boolean isConnectionNull = connection==null;
 		try {
 			if(isConnectionNull) {
@@ -94,8 +94,8 @@ public class PerguntaDAO implements DAO<Pergunta> {
 				connection.setAutoCommit(false);
 			}
 			
-			PreparedStatement pstmt = connection.prepareStatement("DELETE FROM pergunta WHERE cd_pergunta=?");
-			pstmt.setInt(1, obj.getCdPergunta());
+			PreparedStatement pstmt = connection.prepareStatement("DELETE FROM usuario WHERE cd_usuario=?");
+			pstmt.setInt(1, obj.getCdUsuario());
 			
 			pstmt.executeUpdate();
 			if(isConnectionNull)
@@ -126,7 +126,7 @@ public class PerguntaDAO implements DAO<Pergunta> {
 				connection = Conexao.getConnection();
 			}
 			
-			PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM pergunta "
+			PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM usuario "
 																+ " WHERE 1=1 "
 																+ criterias);
 			
@@ -142,25 +142,25 @@ public class PerguntaDAO implements DAO<Pergunta> {
 		}
 	}
 
-	public Pergunta get(int cdPergunta) {
-		return get(cdPergunta, null);
+	public Usuario get(int cdUsuario) {
+		return get(cdUsuario, null);
 	}
 	
-	public Pergunta get(int cdPergunta, Connection connection) {
+	public Usuario get(int cdUsuario, Connection connection) {
 		boolean isConnectionNull = connection==null;
 		try {
 			if(isConnectionNull) {
 				connection = Conexao.getConnection();
 			}
 			
-			ResultSet rs = select(" AND cd_pergunta="+cdPergunta, connection);
+			ResultSet rs = select(" AND cd_usuario="+cdUsuario, connection);
 
-			Pergunta pergunta = null;
+			Usuario usuario = null;
 			if(rs.next()) {
-				pergunta = new Pergunta(rs.getInt("cd_pergunta"), rs.getString("txt_pergunta"), rs.getInt("cd_assunto"), rs.getInt("cd_nivel"));
+				usuario = new Usuario(rs.getInt("cd_usuario"), rs.getString("nm_login"), rs.getString("nm_senha"), rs.getInt("tp_permissao"));
 			}
 			
-			return pergunta;
+			return usuario;
 			
 		} catch (Exception e) {
 			e.printStackTrace(System.err);
@@ -171,6 +171,5 @@ public class PerguntaDAO implements DAO<Pergunta> {
 			}
 		}
 	}
-	
 
 }

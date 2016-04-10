@@ -137,15 +137,6 @@ public class NivelDAO implements DAO<Nivel> {
 		}
 	}
 
-	@Override
-	public ResultSet selectAll() {
-		return selectAll(null);
-	}
-	
-	public ResultSet selectAll(Connection connection) {
-		return select(null, connection);
-	}
-
 	public Nivel get(int cdNivel) {
 		return get(cdNivel, null);
 	}

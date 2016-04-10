@@ -140,15 +140,6 @@ public class QuizPerguntaDAO implements DAO<QuizPergunta> {
 		}
 	}
 
-	@Override
-	public ResultSet selectAll() {
-		return selectAll(null);
-	}
-	
-	public ResultSet selectAll(Connection connection) {
-		return select(null, connection);
-	}
-
 	public QuizPergunta get(int cdQuiz, int cdPergunta) {
 		return get(cdQuiz, cdPergunta, null);
 	}

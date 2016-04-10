@@ -1,0 +1,3 @@
+Para criar o bd, execute o sql ../modelo.sql
+
+As alterações feitas no bd estão nos sql deste diretório, ordenados pela data de execução (aaaammdd)

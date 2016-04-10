@@ -6,7 +6,7 @@ import java.util.HashMap;
 import br.org.uesb.quizsw.util.Result;
 import br.org.uesb.quizsw.util.Service;
 
-public class QuizServices implements Service {
+public class UsuarioServices implements Service {
 
 	@Override
 	public Result save(HashMap<String, Object> content) {
