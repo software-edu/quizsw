@@ -53,17 +53,6 @@ public class Janela_Inicio extends JFrame {
 		JMenu mnMenu = new JMenu("MENU");
 		menuBar.add(mnMenu);
 		
-		JMenuItem mntmSobreOJogo = new JMenuItem("Sobre o Jogo");
-		
-		//encaminha para a tela sobre
-			mntmSobreOJogo.addActionListener(new ActionListener(){
-				public void actionPerformed(ActionEvent eventoSobre){
-					Janela_Sobre Sobre = new Janela_Sobre();
-					Sobre.setVisible(true);
-				}
-			});
-		mnMenu.add(mntmSobreOJogo);
-		
 		JMenuItem mntmSairDoJogo = new JMenuItem("Sair do Jogo");
 		
 		//sai do jogo
@@ -74,6 +63,85 @@ public class Janela_Inicio extends JFrame {
 				});
 				
 		mnMenu.add(mntmSairDoJogo);
+		
+		JMenu mnQuiz = new JMenu("QUIZ");
+		menuBar.add(mnQuiz);
+		
+		JMenuItem mntmNovo = new JMenuItem("Novo");
+		//encaminha para a tela de cadastro de novo quiz
+		mntmNovo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Janela_Cadastro_Quiz cQuiz = new Janela_Cadastro_Quiz();
+				cQuiz.setVisible(true);
+			}
+		});
+		mnQuiz.add(mntmNovo);
+		
+		JMenuItem mntmBuscar = new JMenuItem("Buscar");
+		mnQuiz.add(mntmBuscar);
+		
+		//menu de cadastros
+		JMenu mnCadastros = new JMenu("CADASTROS");
+		menuBar.add(mnCadastros);
+		
+		//cadastro de assuntos
+		//encaminha para a tela Cadastro de Assuntos
+		JMenuItem mntmAssunto = new JMenuItem("Assunto");
+		mntmAssunto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Janela_Cadastro_Assunto Assunto = new Janela_Cadastro_Assunto();
+				Assunto.setVisible(true);
+			}
+		});		
+		mnCadastros.add(mntmAssunto);
+		
+		//cadastro de niveis
+		//encaminha para a tela de Cadastro de Niveis
+		JMenuItem mntmNvel = new JMenuItem("Nível");
+		mntmNvel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Janela_Cadastro_Niveis Niveis = new Janela_Cadastro_Niveis();
+				Niveis.setVisible(true);
+			}
+		});
+		mnCadastros.add(mntmNvel);
+		
+		//cadastro de perguntas
+		JMenuItem mntmPergunta = new JMenuItem("Pergunta");
+		mntmPergunta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Janela_Cadastro_Pergunta Perguntas = new Janela_Cadastro_Pergunta();
+				Perguntas.setVisible(true);
+			}
+		});
+		mnCadastros.add(mntmPergunta);
+		
+		//cadastro de usuarios
+		//encaminha para a tela de cadastro de usuarios
+		JMenuItem mntmUsurio = new JMenuItem("Usuário");
+		mntmUsurio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Janela_Cadastro_Usuario Usuario = new Janela_Cadastro_Usuario();
+				Usuario.setVisible(true);
+			}
+		});
+		mnCadastros.add(mntmUsurio);
+		
+		//menu Ajuda
+		JMenu mnAjuda = new JMenu("AJUDA");
+		menuBar.add(mnAjuda);
+		
+		//sub-menu Sobre
+		JMenuItem mntmSobreOJogo = new JMenuItem("Sobre o Jogo");
+		mnAjuda.add(mntmSobreOJogo);
+		
+		//encaminha para a tela sobre
+			mntmSobreOJogo.addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent eventoSobre){
+					Janela_Sobre Sobre = new Janela_Sobre();
+					Sobre.setVisible(true);
+				}
+			});
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -81,7 +149,7 @@ public class Janela_Inicio extends JFrame {
 		
 		JButton btnIniciar = new JButton("INICIAR");
 		
-		//encaminha para a tela sobre
+		//encaminha para a tela do quiz
 		btnIniciar.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent eventoIniciaQuiz){
 				Bio_Quiz Quiz = new Bio_Quiz();

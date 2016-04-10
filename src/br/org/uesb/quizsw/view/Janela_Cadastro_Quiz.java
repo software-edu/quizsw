@@ -54,7 +54,7 @@ public class Janela_Cadastro_Quiz extends JFrame {
 	public Janela_Cadastro_Quiz() {
 		
 		setIconImage(new ImageIcon(getClass().getResource("/images/BioGame_Icon.png")).getImage());
-		setTitle("Cadastro - Quiz");
+		setTitle("Quiz");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 526, 401);
 		contentPane = new JPanel();
@@ -62,7 +62,7 @@ public class Janela_Cadastro_Quiz extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblTitulo = new JLabel("Titulo");
+		JLabel lblTitulo = new JLabel("Titulo do Quiz");
 		lblTitulo.setBounds(20, 11, 46, 14);
 		contentPane.add(lblTitulo);
 		
@@ -86,12 +86,20 @@ public class Janela_Cadastro_Quiz extends JFrame {
 		Button btnAdicionarPerguntas = new Button("+");
 		btnAdicionarPerguntas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				listadePerguntas.removeAllElements();
+				Janela_Cadastro_Pergunta Pergunta = new Janela_Cadastro_Pergunta();
+				Pergunta.setVisible(true);
+				/**
+				 * adiciona elementos ao jList
+				 * 
+				 * listadePerguntas.removeAllElements();
 				arrayPerguntas.add(tfTitulo.getText());
 				tfTitulo.setText("");
 				for(String tempTitulo:arrayPerguntas){
 					listadePerguntas.addElement(tempTitulo);
 				}
+				 */
+				
+				
 			}
 		});
 		btnAdicionarPerguntas.setBounds(430, 190, 46, 22);
@@ -115,6 +123,10 @@ public class Janela_Cadastro_Quiz extends JFrame {
 		spinErros.setModel(new SpinnerNumberModel(0, 0, 5, 1)); //o spinner tem minimo 0 e maximo 5
 		spinErros.setBounds(115, 111, 46, 31);
 		contentPane.add(spinErros);
+		
+		JLabel lblPerguntas = new JLabel("Perguntas");
+		lblPerguntas.setBounds(20, 165, 100, 14);
+		contentPane.add(lblPerguntas);
 		
 		
 
