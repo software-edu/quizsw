@@ -21,7 +21,7 @@ public class Conexao {
             String mydatabase = "quizsw";
             String url = "jdbc:postgresql://" + serverName + "/" + mydatabase;
             String username = "postgres";
-            String password = "postgres";
+            String password = "s31l4c4r4";
 
             connection = DriverManager.getConnection(url, username, password);
 
@@ -49,6 +49,16 @@ public class Conexao {
         }
     }
     
+    public static boolean rollback(Connection connection) {
+        try {
+            connection.rollback();
+            return true;
+        } catch (SQLException e) {
+            System.err.println("Wasn't possible rollback connection.\n" + e);
+            return false;
+        }
+    }
+    
     public Connection restartConnection(Connection connection) {
         closeConnection(connection);
         return Conexao.getConnection();
@@ -57,14 +67,14 @@ public class Conexao {
     public static synchronized int getCode(String nmTable) {
     	int code = 0;
     	try {
-    		PreparedStatement pstmt = getConnection().prepareStatement("SELECT MAX(cd_"+nmTable+") FROM "+nmTable);
+    		PreparedStatement pstmt = getConnection().prepareStatement("SELECT MAX(cd_"+nmTable+") as code FROM "+nmTable);
     		ResultSet rs = pstmt.executeQuery();
     		
     		if(rs.next()) {
-    			code = 1 + rs.getInt("cd_"+nmTable);
+    			code = rs.getInt("code");
     		}
     		
-    		return code;
+    		return code+1;
     		
     	} catch(Exception e) {
     		e.printStackTrace(System.err);

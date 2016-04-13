@@ -8,6 +8,13 @@ public class Result {
 	private String message;
 	private HashMap<String, Object> objects;
 	
+	public Result(int code, String message) {
+		super();
+		this.code = code;
+		this.message = message;
+		this.objects = null;
+	}
+	
 	public Result(int code, String message, HashMap<String, Object> objects) {
 		super();
 		this.code = code;
