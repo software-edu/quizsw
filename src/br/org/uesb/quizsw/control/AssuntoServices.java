@@ -3,11 +3,13 @@ package br.org.uesb.quizsw.control;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import br.org.uesb.quizsw.util.Conexao;
 import br.org.uesb.quizsw.util.Result;
 import br.org.uesb.quizsw.util.Service;
+import br.org.uesb.quizsw.util.Util;
 
 public class AssuntoServices implements Service<Assunto> {
 
@@ -105,11 +107,11 @@ public class AssuntoServices implements Service<Assunto> {
 	}
 
 	@Override
-	public ResultSet find(String criterios) {
+	public ArrayList<HashMap<String, Object>> find(String criterios) {
 		return find(criterios, null);
 	}
 	
-	public ResultSet find(String criterios, Connection connection) {
+	public ArrayList<HashMap<String, Object>> find(String criterios, Connection connection) {
 		boolean isConnectionNull = connection==null;
 		if (isConnectionNull)
 			connection = Conexao.getConnection();
@@ -122,7 +124,7 @@ public class AssuntoServices implements Service<Assunto> {
 					+ " WHERE 1=1 "
 					+ (criterios!=null ? criterios : "")
 			);
-			return pstmt.executeQuery();
+			return Util.resultSetToList(pstmt.executeQuery());
 		}
 		catch(Exception e) {
 			e.printStackTrace(System.out);
@@ -135,11 +137,11 @@ public class AssuntoServices implements Service<Assunto> {
 	}
 
 	@Override
-	public ResultSet getAll() {
+	public ArrayList<HashMap<String, Object>> getAll() {
 		return getAll(null);
 	}
 	
-	public ResultSet getAll(Connection connection) {
+	public ArrayList<HashMap<String, Object>> getAll(Connection connection) {
 		return find(null, connection);
 	}
 

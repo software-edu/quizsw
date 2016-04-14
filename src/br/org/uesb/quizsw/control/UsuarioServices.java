@@ -1,6 +1,6 @@
 package br.org.uesb.quizsw.control;
 
-import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import br.org.uesb.quizsw.util.Result;
@@ -15,13 +15,13 @@ public class UsuarioServices implements Service<Usuario> {
 	}
 
 	@Override
-	public ResultSet find(String criterios) {
+	public ArrayList<HashMap<String, Object>> find(String criterios) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ResultSet getAll() {
+	public ArrayList<HashMap<String, Object>> getAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}

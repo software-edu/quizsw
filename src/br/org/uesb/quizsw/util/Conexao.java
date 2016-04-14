@@ -21,7 +21,7 @@ public class Conexao {
             String mydatabase = "quizsw";
             String url = "jdbc:postgresql://" + serverName + "/" + mydatabase;
             String username = "postgres";
-            String password = "s31l4c4r4";
+            String password = "t1v1k!";//"s31l4c4r4";
 
             connection = DriverManager.getConnection(url, username, password);
 

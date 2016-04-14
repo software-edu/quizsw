@@ -56,10 +56,11 @@ public class NivelDAO implements DAO<Nivel> {
 				connection.setAutoCommit(false);
 			}
 			
-			PreparedStatement pstmt = connection.prepareStatement("UPDATE nivel (cd_nivel, nm_nivel)"
-																+ " VALUES (?, ?)");
+			PreparedStatement pstmt = connection.prepareStatement("UPDATE nivel set cd_nivel=?, nm_nivel=?"
+																+ " WHERE cd_nivel=?");
 			pstmt.setInt(1, obj.getCdNivel());
 			pstmt.setString(2, obj.getNmNivel());
+			pstmt.setInt(3, obj.getCdNivel());
 			
 			pstmt.executeUpdate();
 			if(isConnectionNull)
