@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<database>
+	<dbms>postgresql</dbms>
+	<driver>org.postgresql.Driver</driver>
+	<server>localhost</server>
+	<name>quizsw</name>
+	<user>postgres</user>
+	<pass></pass>
+</database>
