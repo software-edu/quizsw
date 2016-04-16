@@ -2,8 +2,7 @@
 <database>
 	<dbms>postgresql</dbms>
 	<driver>org.postgresql.Driver</driver>
-	<server>localhost</server>
-	<name>quizsw</name>
+	<url>jdbc:postgresql://localhost/quizsw</url>
 	<user>postgres</user>
 	<pass></pass>
 </database>
