@@ -1,44 +1,40 @@
 package br.org.uesb.quizsw.view;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
-import br.org.uesb.quizsw.control.NivelServices;
-import br.org.uesb.quizsw.control.Usuario;
-import br.org.uesb.quizsw.control.UsuarioServices;
-import br.org.uesb.quizsw.util.Result;
-
-import javax.swing.JScrollPane;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
+import br.org.uesb.quizsw.control.Usuario;
+import br.org.uesb.quizsw.control.UsuarioServices;
+import br.org.uesb.quizsw.util.Result;
 
 public class Janela_Cadastro_Usuario extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField tfLogin;
-	private JPasswordField pfSenha;
-	private JPasswordField pfRepetirSenha;
+	private JTextField tfLogin = new JTextField();
+	private JPasswordField pfSenha = new JPasswordField();
+	private JPasswordField pfRepetirSenha = new JPasswordField();
 	private JList<String> listUsuario = new JList<String>();
 	private JScrollPane scrollPaneListaUsuarios = new JScrollPane();
-	private JButton btnNovoNivel = new JButton("Novo Usuário");
 	private JButton btnSalvar = new JButton("Salvar");
 	private JButton btnCancelar = new JButton("Cancelar");
 	private JLabel lblLogin = new JLabel("Login");
@@ -90,8 +86,16 @@ public class Janela_Cadastro_Usuario extends JFrame {
 		listUsuario.addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
-				tfLogin.setText(listUsuario.getSelectedValue());
+				int index = listUsuario.getSelectedIndex();
 				
+				if(!listUsuario.isSelectionEmpty()) {
+					tfLogin.setText(listUsuario.getSelectedValue());
+					pfSenha.setText((String)listUsuarios.get(index).get("nm_senha"));
+					pfRepetirSenha.setText((String)listUsuarios.get(index).get("nm_senha"));
+					
+					rdbtnAdministrador.setSelected((int)listUsuarios.get(index).get("tp_permissao")==UsuarioServices.TP_PERMISSAO_ADMINISTRADOR);
+					rdbtnOperador.setSelected((int)listUsuarios.get(index).get("tp_permissao")==UsuarioServices.TP_PERMISSAO_OPERADOR);
+				}
 			}
 		});
 		
@@ -103,6 +107,10 @@ public class Janela_Cadastro_Usuario extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				cdUsuario = 0;
 				tfLogin.setText(null);
+				pfSenha.setText(null);
+				pfRepetirSenha.setText(null);
+				
+				bgPermissoes.clearSelection();
 				
 				listUsuario.clearSelection();
 			}
@@ -129,12 +137,10 @@ public class Janela_Cadastro_Usuario extends JFrame {
 		
 		pfSenha.setBounds(262, 153, 275, 20);
 		contentPane.add(pfSenha);
-		String senha = new String (pfSenha.getPassword());
 		
 		
 		pfRepetirSenha.setBounds(262, 233, 275, 20);
 		contentPane.add(pfRepetirSenha);
-		String repetirSenha = new String (pfRepetirSenha.getPassword());		
 		
 		
 		lblPermissao.setBounds(262, 282, 78, 14);
@@ -175,36 +181,35 @@ public class Janela_Cadastro_Usuario extends JFrame {
 		bgPermissoes.add(rdbtnOperador);
 		bgPermissoes.add(rdbtnAdministrador);
 		
-		
+		loadListUsuarios();
 	}
 	
 	private void btnSalvarOnClick(ActionEvent e) {
 		cdUsuario = 0;
 		
-		if(pfSenha.getPassword() == pfRepetirSenha.getPassword()){
-			if(!listUsuario.isSelectionEmpty()) {
-				cdUsuario = (int)listUsuarios.get(listUsuario.getSelectedIndex()).get("cd_usuario");
-			}
-			
-			Usuario usuario = new Usuario(cdUsuario, tfLogin.getText(), String.valueOf(pfSenha.getPassword()),verificaRadioButton(bgPermissoes));
-			HashMap<String, Object> content = new HashMap<String, Object>();
-			content.put("usuario", usuario);
-			
-			Result result = new UsuarioServices().save(content);
-			
-			if(result.getCode()<=0) {
-				JOptionPane.showMessageDialog(this, result.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-			}
-			else {
-				JOptionPane.showMessageDialog(this, result.getMessage(), "Info", JOptionPane.INFORMATION_MESSAGE);
-				
-				loadListUsuarios();
-			}
+		if(!new String(pfSenha.getPassword()).equals(new String(pfRepetirSenha.getPassword()))) {
+			JOptionPane.showMessageDialog(this, "Senhas diferentes. Por favor reinsira sua senha!", "", JOptionPane.ERROR_MESSAGE);
+			return;
 		}
 		
-		else{
-			JOptionPane.showMessageDialog(btnSalvar, "Senhas diferentes. Por favor reinsira sua senha!");//acho que ta errado isso
-		}	
+		if(!listUsuario.isSelectionEmpty()) {
+			cdUsuario = (int)listUsuarios.get(listUsuario.getSelectedIndex()).get("cd_usuario");
+		}
+		
+		Usuario usuario = new Usuario(cdUsuario, tfLogin.getText(), String.valueOf(pfSenha.getPassword()),verificaRadioButton(bgPermissoes));
+		HashMap<String, Object> content = new HashMap<String, Object>();
+		content.put("usuario", usuario);
+		
+		Result result = new UsuarioServices().save(content);
+		
+		if(result.getCode()<=0) {
+			JOptionPane.showMessageDialog(this, result.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+		}
+		else {
+			JOptionPane.showMessageDialog(this, result.getMessage(), "Info", JOptionPane.INFORMATION_MESSAGE);
+			
+			loadListUsuarios();
+		}
 	}
 	
 	private void btnCancelarOnClick(ActionEvent e) {
@@ -228,10 +233,6 @@ public class Janela_Cadastro_Usuario extends JFrame {
 	}
 	
 	private int verificaRadioButton(ButtonGroup bgPermissoes) {
-		if(bgPermissoes.getSelection() == rdbtnOperador){
-			return 1;
-		}
-		else
-		return 0;
+		return rdbtnAdministrador.isSelected() ? 0 : 1;
 	}
 }

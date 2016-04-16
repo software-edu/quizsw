@@ -58,12 +58,16 @@ public class UsuarioDAO implements DAO<Usuario> {
 				connection.setAutoCommit(false);
 			}
 			
-			PreparedStatement pstmt = connection.prepareStatement("UPDATE usuario (cd_usuario, nm_login, nm_senha, tp_permissao)"
-																+ " VALUES (?, ?, ?, ?)");
+			PreparedStatement pstmt = connection.prepareStatement("UPDATE usuario SET cd_usuario=?, "
+																		+ "nm_login=?, "
+																		+ "nm_senha=?, "
+																		+ "tp_permissao=?"
+																+ " WHERE cd_usuario=?");
 			pstmt.setInt(1, obj.getCdUsuario());
 			pstmt.setString(2, obj.getNmLogin());
 			pstmt.setString(3, obj.getNmSenha());
-			pstmt.setInt(3, obj.getTpPermissao());
+			pstmt.setInt(4, obj.getTpPermissao());
+			pstmt.setInt(5, obj.getCdUsuario());
 			
 			pstmt.executeUpdate();
 			if(isConnectionNull)

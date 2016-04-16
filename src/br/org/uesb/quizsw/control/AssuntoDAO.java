@@ -59,11 +59,14 @@ public class AssuntoDAO implements DAO<Assunto> {
 				connection.setAutoCommit(false);
 			}
 			
-			PreparedStatement pstmt = connection.prepareStatement("UPDATE assunto (cd_assunto, nm_assunto, cd_assunto_superior)"
-																+ " VALUES (?, ?, ?)");
+			PreparedStatement pstmt = connection.prepareStatement("UPDATE assunto SET cd_assunto=?, "
+					  									+ "	nm_assunto=?, "
+					  									+ "cd_assunto_superior=?"
+														+ " WHERE cd_assunto=?");
 			pstmt.setInt(1, obj.getCdAssunto());
 			pstmt.setString(2, obj.getNmAssunto());
 			pstmt.setInt(3, obj.getCdAssuntoSuperior());
+			pstmt.setInt(4, obj.getCdAssunto());
 			
 			pstmt.executeUpdate();
 			if(isConnectionNull)
