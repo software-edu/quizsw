@@ -10,25 +10,22 @@ public class Conexao {
 	
 	public static String status = "Not connected";
 
-    public static Connection getConnection() {
+    @SuppressWarnings("finally")
+	public static Connection getConnection() {
         Connection connection = null;
 
         try {
-            String driverName = "org.postgresql.Driver";
-            Class.forName(driverName);
-
-            String serverName = "localhost";
-            String mydatabase = "quizsw";
-            String url = "jdbc:postgresql://" + serverName + "/" + mydatabase;
-            String username = "postgres";
-            String password = "t1v1k!";//"s31l4c4r4";
-
-            connection = DriverManager.getConnection(url, username, password);
+        	Database db = ConfManager.getDatabaseInfo();
+        	        	
+//            String driverName = db.getDriver();
+//            Class.forName(driverName);
+            
+            connection = DriverManager.getConnection(db.getUrl(), db.getUser(), db.getPass());
 
             if (connection != null) {
                 status = "Sucessfully connected";
             }
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (SQLException e) {
             System.err.println("Wasn't possible connect.\n" + e);
         } finally {
             return connection;
