@@ -3,6 +3,7 @@ package br.org.uesb.quizsw.control;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Types;
 
 import br.org.uesb.quizsw.util.Conexao;
 import br.org.uesb.quizsw.util.DAO;
@@ -28,7 +29,10 @@ public class AssuntoDAO implements DAO<Assunto> {
 																+ " VALUES (?, ?, ?)");
 			pstmt.setInt(1, code);
 			pstmt.setString(2, obj.getNmAssunto());
-			pstmt.setInt(3, obj.getCdAssuntoSuperior());
+			if(obj.getCdAssuntoSuperior()==0)
+				pstmt.setNull(3, Types.INTEGER);
+			else
+				pstmt.setInt(3, obj.getCdAssuntoSuperior());
 			
 			pstmt.executeUpdate();
 			if(isConnectionNull)

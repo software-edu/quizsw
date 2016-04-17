@@ -144,5 +144,63 @@ public class AssuntoServices implements Service<Assunto> {
 	public ArrayList<HashMap<String, Object>> getAll(Connection connection) {
 		return find(null, connection);
 	}
-
+	
+	public ArrayList<HashMap<String, Object>> getAllBySuperior(int cdAssuntoSuperior) {
+		return getAllBySuperior(cdAssuntoSuperior, null);
+	}
+	
+	public ArrayList<HashMap<String, Object>> getAllBySuperior(int cdAssuntoSuperior, Connection connection) {
+		String ctr = "AND A.cd_assunto_superior"+(cdAssuntoSuperior==0 ? " IS NULL" : "="+cdAssuntoSuperior);
+		
+		return find(ctr, connection);
+	}
+	
+	public Assunto getSuperior(int cdAssunto) {
+		return getSuperior(cdAssunto, null);
+	}
+	
+	public Assunto getSuperior(int cdAssunto, Connection connection) {
+		String ctr = "AND A.cd_assunto="+cdAssunto;
+		
+		ArrayList<HashMap<String, Object>> r = find(ctr, connection);
+		if(r.isEmpty())
+			return null;
+		
+		if(r.get(0).get("cd_assunto_superior")==null || (int)r.get(0).get("cd_assunto_superior")==0)
+			return null;
+		else
+			return new AssuntoDAO().get((int)r.get(0).get("cd_assunto_superior"), connection);
+	}
+	
+	public ArrayList<HashMap<String, Object>> getAll(boolean hierarquia) {
+		if(hierarquia) {
+			ArrayList<HashMap<String, Object>> list =  getAll(null);
+			
+			for (HashMap<String, Object> hashMap : list) {
+				int level = this.getLevel((int)hashMap.get("cd_assunto"));
+				
+				String space = "";
+				for(int i=0; i<level; i++)
+					space += "---";
+				
+				String value = space + (String)hashMap.get("nm_assunto");
+				hashMap.put("ds_assunto", value);
+			}
+			
+			return list;
+		}
+		else
+			return getAll();
+	}
+	
+	private int getLevel(int cdAssunto) {
+		int level = 0;
+		
+		while(this.getSuperior(cdAssunto)!=null){
+			level++;
+			cdAssunto = this.getSuperior(cdAssunto).getCdAssuntoSuperior();
+		}
+		
+		return level++;
+	}
 }
