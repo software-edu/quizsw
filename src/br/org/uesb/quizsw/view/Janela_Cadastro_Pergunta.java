@@ -1,19 +1,31 @@
 package br.org.uesb.quizsw.view;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.JTextArea;
-import javax.swing.JRadioButton;
 import javax.swing.JButton;
-import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
+import br.org.uesb.quizsw.control.AssuntoServices;
+import br.org.uesb.quizsw.control.NivelServices;
+import br.org.uesb.quizsw.control.Pergunta;
+import br.org.uesb.quizsw.control.PerguntaServices;
+import br.org.uesb.quizsw.control.Resposta;
+import br.org.uesb.quizsw.util.Result;
 
 public class Janela_Cadastro_Pergunta extends JFrame {
 
@@ -22,6 +34,20 @@ public class Janela_Cadastro_Pergunta extends JFrame {
 	private JTextField tfAlternativa2;
 	private JTextField tfAlternativa3;
 	private JTextField tfAlternativa4;
+
+	private JTextArea taPerguntas = new JTextArea();
+	//cria um ButtonGroup
+	private ButtonGroup bgAlternativas = new ButtonGroup();
+	private JRadioButton rdbtn1 = new JRadioButton("1");
+	private JRadioButton rdbtn2 = new JRadioButton("2");
+	private JRadioButton rdbtn3 = new JRadioButton("3");
+	private JRadioButton rdbtn4 = new JRadioButton("4");
+	private JComboBox<String> cbNivel = new JComboBox<>();
+	private JComboBox<String> cbAssunto = new JComboBox<>();
+	private JButton btnSalvar = new JButton("Salvar");
+	private JButton btnCancelar = new JButton("Cancelar");
+	
+	public int cdPergunta = 0;
 
 	/**
 	 * Launch the application.
@@ -56,30 +82,22 @@ public class Janela_Cadastro_Pergunta extends JFrame {
 		lblPergunta.setBounds(10, 11, 83, 14);
 		contentPane.add(lblPergunta);
 		
-		JTextArea taPerguntas = new JTextArea();
 		taPerguntas.setWrapStyleWord(true);
 		taPerguntas.setLineWrap(true);
 		taPerguntas.setBounds(10, 36, 527, 85);
 		contentPane.add(taPerguntas);
 		
-		JRadioButton rdbtn1 = new JRadioButton("1");
 		rdbtn1.setBounds(10, 166, 41, 23);
 		contentPane.add(rdbtn1);
 		
-		JRadioButton rdbtn2 = new JRadioButton("2");
 		rdbtn2.setBounds(10, 192, 41, 23);
 		contentPane.add(rdbtn2);
 		
-		JRadioButton rdbtn3 = new JRadioButton("3");
 		rdbtn3.setBounds(10, 218, 41, 23);
 		contentPane.add(rdbtn3);
 		
-		JRadioButton rdbtn4 = new JRadioButton("4");
 		rdbtn4.setBounds(10, 244, 41, 23);
 		contentPane.add(rdbtn4);
-		
-		//cria um ButtonGroup
-		ButtonGroup bgAlternativas = new ButtonGroup();
 		
 		//adiciona radiobuttons ao grupo
 		bgAlternativas.add(rdbtn1);
@@ -87,13 +105,25 @@ public class Janela_Cadastro_Pergunta extends JFrame {
 		bgAlternativas.add(rdbtn3);
 		bgAlternativas.add(rdbtn4);
 		
-		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.setBounds(336, 533, 89, 23);
 		contentPane.add(btnSalvar);
+		btnSalvar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				btnSalvarOnClick(e);
+				
+			}
+		});
 		
-		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(448, 533, 89, 23);
 		contentPane.add(btnCancelar);
+		btnCancelar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				btnCancelarOnClick(e);
+				
+			}
+		});
 		
 		JLabel lblAlternativas = new JLabel("Alternativas:");
 		lblAlternativas.setBounds(10, 145, 117, 14);
@@ -123,20 +153,83 @@ public class Janela_Cadastro_Pergunta extends JFrame {
 		lblNivel.setBounds(396, 299, 68, 14);
 		contentPane.add(lblNivel);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(396, 334, 141, 20);
-		contentPane.add(comboBox);
+		cbNivel.setBounds(396, 334, 141, 20);
+		contentPane.add(cbNivel);
 		
 		JLabel lblAssunto = new JLabel("Assunto:");
 		lblAssunto.setBounds(10, 299, 83, 14);
 		contentPane.add(lblAssunto);
 		
-		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setBounds(10, 334, 283, 20);
-		contentPane.add(comboBox_2);
+		cbAssunto.setBounds(10, 334, 283, 20);
+		contentPane.add(cbAssunto);
 		
 		JLabel lblImagem = new JLabel("Imagem:");
 		lblImagem.setBounds(10, 414, 68, 14);
 		contentPane.add(lblImagem);
+		
+		loadAssunto();
+		loadNivel();
+	}
+	
+	private ArrayList<HashMap<String, Object>> listAssunto;
+	private void loadAssunto() {
+		listAssunto = new AssuntoServices().getAll();
+		
+		cbAssunto.setModel(new DefaultComboBoxModel<String>());
+		for (HashMap<String, Object> assunto : listAssunto) {
+			cbAssunto.addItem((String)assunto.get("nm_assunto"));
+		}
+	}
+	
+	private ArrayList<HashMap<String, Object>> listNivel;
+	private void loadNivel(){
+		listNivel = new NivelServices().getAll();
+		
+		cbNivel.setModel(new DefaultComboBoxModel<String>());
+		for (HashMap<String, Object> nivel : listNivel) {
+			cbNivel.addItem((String)nivel.get("nm_nivel"));
+		}
+	}
+
+	private void btnSalvarOnClick(ActionEvent e) {
+		if(taPerguntas.getText().trim().equals(""))
+			return;
+		
+		if(bgAlternativas.getSelection()==null)
+			return;
+		
+		if(tfAlternativa1.getText().trim().equals("") ||
+				tfAlternativa2.getText().trim().equals("") ||
+				tfAlternativa3.getText().trim().equals("") ||
+				tfAlternativa4.getText().trim().equals(""))
+			return;
+		
+		HashMap<String, Object> content = new HashMap<>();
+		
+		Pergunta pergunta = new Pergunta(cdPergunta, taPerguntas.getText().trim(), 
+				(int)listAssunto.get(cbAssunto.getSelectedIndex()).get("cd_assunto"), 
+				(int)listNivel.get(cbNivel.getSelectedIndex()).get("cd_nivel"));
+		content.put("pergunta", pergunta);
+		
+		Resposta[] respostas = new Resposta[4];
+		respostas[0] = new Resposta(1, cdPergunta, tfAlternativa1.getText().trim(), rdbtn1.isSelected()?1:0, null);
+		respostas[1] = new Resposta(2, cdPergunta, tfAlternativa2.getText().trim(), rdbtn2.isSelected()?1:0, null);
+		respostas[2] = new Resposta(3, cdPergunta, tfAlternativa3.getText().trim(), rdbtn3.isSelected()?1:0, null);
+		respostas[3] = new Resposta(4, cdPergunta, tfAlternativa4.getText().trim(), rdbtn4.isSelected()?1:0, null);
+		content.put("respostas", respostas);
+		
+		Result result = new PerguntaServices().save(content);
+		if(result.getCode()<=0) {
+			JOptionPane.showMessageDialog(this, result.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+		}
+		else {
+			JOptionPane.showMessageDialog(this, result.getMessage(), "Info", JOptionPane.INFORMATION_MESSAGE);
+		}
+		
+	}
+
+	private void btnCancelarOnClick(ActionEvent e) {
+		this.setVisible(false);
+		this.dispose();
 	}
 }

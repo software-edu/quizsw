@@ -185,15 +185,15 @@ public class RespostaDAO implements DAO<Resposta> {
 	private static synchronized int getCode(int cdPergunta, Connection connection) {
     	int code = 0;
     	try {
-    		PreparedStatement pstmt = connection.prepareStatement("SELECT MAX(cd_resposta) FROM resposta"
+    		PreparedStatement pstmt = connection.prepareStatement("SELECT MAX(cd_resposta) AS code FROM resposta"
     															+ " WHERE cd_pergunta="+cdPergunta);
     		ResultSet rs = pstmt.executeQuery();
     		
     		if(rs.next()) {
-    			code = 1 + rs.getInt("cd_resposta");
+    			code = rs.getInt("code");
     		}
     		
-    		return code;
+    		return code+1;
     		
     	} catch(Exception e) {
     		e.printStackTrace(System.err);
