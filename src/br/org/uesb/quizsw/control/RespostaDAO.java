@@ -59,13 +59,19 @@ public class RespostaDAO implements DAO<Resposta> {
 				connection.setAutoCommit(false);
 			}
 			
-			PreparedStatement pstmt = connection.prepareStatement("UPDATE resposta (cd_pergunta, cd_resposta, txt_resposta, lg_correto, blb_imagem)"
-																+ " VALUES (?, ?, ?, ?, ?)");
+			PreparedStatement pstmt = connection.prepareStatement("UPDATE resposta SET cd_pergunta=?, "
+																+ "cd_resposta=?, "
+																+ "txt_resposta=?, "
+																+ "lg_correto=?, "
+																+ "blb_imagem=? "
+																+ " WHERE cd_pergunta=? AND cd_resposta=?");
 			pstmt.setInt(1, obj.getCdPergunta());
 			pstmt.setInt(2, obj.getCdResposta());
 			pstmt.setString(3, obj.getTxtResposta());
 			pstmt.setInt(4, obj.getLgCorreto());
 			pstmt.setBytes(5, obj.getBlbImagem());
+			pstmt.setInt(6, obj.getCdPergunta());
+			pstmt.setInt(7, obj.getCdResposta());
 			
 			pstmt.executeUpdate();
 			if(isConnectionNull)

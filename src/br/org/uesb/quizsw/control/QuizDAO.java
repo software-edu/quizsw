@@ -59,13 +59,19 @@ public class QuizDAO implements DAO<Quiz> {
 				connection.setAutoCommit(false);
 			}
 			
-			PreparedStatement pstmt = connection.prepareStatement("UPDATE quiz (cd_quiz, nm_quiz, qtd_tempo, qtd_erro, blb_imagem)"
-																+ " VALUES (?, ?, ?, ?, ?)");
+			PreparedStatement pstmt = connection.prepareStatement("UPDATE quiz SET "
+																+ "cd_quiz=?, "
+																+ "nm_quiz=?, "
+																+ "qtd_tempo=?, "
+																+ "qtd_erro=?, "
+																+ "blb_imagem=? "
+																+ " WHERE cdquiz=?");
 			pstmt.setInt(1, obj.getCdQuiz());
 			pstmt.setString(2, obj.getNmQuiz());
 			pstmt.setInt(3, obj.getQtdTempo());
 			pstmt.setInt(4, obj.getQtdErro());
 			pstmt.setBytes(5, obj.getBlbImagem());
+			pstmt.setInt(6, obj.getCdQuiz());
 			
 			pstmt.executeUpdate();
 			if(isConnectionNull)

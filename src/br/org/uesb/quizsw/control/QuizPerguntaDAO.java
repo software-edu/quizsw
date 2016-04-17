@@ -57,11 +57,15 @@ public class QuizPerguntaDAO implements DAO<QuizPergunta> {
 				connection.setAutoCommit(false);
 			}
 			
-			PreparedStatement pstmt = connection.prepareStatement("UPDATE quiz_pergunta (cd_quiz, cd_pergunta, nr_ordem)"
-																+ " VALUES (?, ?, ?)");
+			PreparedStatement pstmt = connection.prepareStatement("UPDATE quiz_pergunta SET cd_quiz=?, "
+																+ "cd_pergunta=?, "
+																+ "nr_ordem=? "
+																+ " WHERE cd_quiz=? AND cd_pergunta=?");
 			pstmt.setInt(1, obj.getCdQuiz());
 			pstmt.setInt(2, obj.getCdPergunta());
 			pstmt.setInt(3, obj.getNrOrdem());
+			pstmt.setInt(4, obj.getCdQuiz());
+			pstmt.setInt(5, obj.getCdPergunta());
 			
 			pstmt.executeUpdate();
 			if(isConnectionNull)
