@@ -6,9 +6,22 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import com.sun.istack.internal.logging.Logger;
+
+import br.org.uesb.quizsw.util.Conexao;
+import br.org.uesb.quizsw.util.Result;
+
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.logging.Level;
+//import java.util.logging.Logger;
+
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -17,7 +30,11 @@ public class Janela_Login extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textFieldUsuario;
-	private JPasswordField passwordField;
+	private JPasswordField passwordFieldSenha = new JPasswordField();
+	private JLabel lblUsuario = new JLabel("USUARIO");
+	private JLabel lblSenha = new JLabel("SENHA");
+	private JButton btnConfirmar = new JButton("CONFIRMAR");
+	private Conexao conec = new Conexao();
 
 	/**
 	 * Launch the application.
@@ -53,20 +70,50 @@ public class Janela_Login extends JFrame {
 		contentPane.add(textFieldUsuario);
 		textFieldUsuario.setColumns(10);
 		
-		JLabel lblUsuario = new JLabel("USUARIO");
+		
 		lblUsuario.setBounds(198, 53, 58, 14);
 		contentPane.add(lblUsuario);
 		
-		JLabel lblSenha = new JLabel("SENHA");
+		
 		lblSenha.setBounds(204, 138, 52, 14);
 		contentPane.add(lblSenha);
 		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(130, 163, 190, 20);
-		contentPane.add(passwordField);
 		
-		JButton btnConfirmar = new JButton("CONFIRMAR");
+		passwordFieldSenha.setBounds(130, 163, 190, 20);
+		contentPane.add(passwordFieldSenha);
+		
+		
 		btnConfirmar.setBounds(173, 211, 106, 23);
 		contentPane.add(btnConfirmar);
+		btnConfirmar.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					btnConfirmarOnClick(e);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		
+	
+	
 	}
+
+public void btnConfirmarOnClick(ActionEvent e) throws SQLException{
+	conec.getConnection();
+	String SQL = "SELECT * from Usuario";
+	//TEM UNS TRENS PARA SEREM FEITOS NESSE ESPAÇO MAS NÃO ENTENDI AINDA COMO FAZ
+	
+	if(textFieldUsuario.getText().equals("conec.resultset.getString(nm_login)") && passwordFieldSenha.getPassword().toString().equals("conec.resultset.getString(nm_senha)")){
+		JOptionPane.showMessageDialog(null, "Logado");
+		Janela_Inicio janelaInicio = new Janela_Inicio();
+		janelaInicio.setVisible(true);
+	}
+	else{
+		JOptionPane.showMessageDialog(null, "Login ou Senha INCORRETOS! Verifique seus dados!");
+	}
+}
+
 }
