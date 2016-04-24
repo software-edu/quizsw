@@ -4,5 +4,5 @@
 	<driver>org.postgresql.Driver</driver>
 	<url>jdbc:postgresql://localhost/quizsw</url>
 	<user>postgres</user>
-	<pass></pass>
+	<pass>s31l4c4r4</pass>
 </database>
