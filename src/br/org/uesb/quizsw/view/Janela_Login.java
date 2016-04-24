@@ -1,30 +1,23 @@
 package br.org.uesb.quizsw.view;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import com.sun.istack.internal.logging.Logger;
-
-import br.org.uesb.quizsw.util.Conexao;
-import br.org.uesb.quizsw.util.Result;
-
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
-import java.util.logging.Level;
-//import java.util.logging.Logger;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
+import br.org.uesb.quizsw.control.UsuarioServices;
+import br.org.uesb.quizsw.util.Result;
 
 public class Janela_Login extends JFrame {
 
@@ -33,8 +26,7 @@ public class Janela_Login extends JFrame {
 	private JPasswordField passwordFieldSenha = new JPasswordField();
 	private JLabel lblUsuario = new JLabel("USUARIO");
 	private JLabel lblSenha = new JLabel("SENHA");
-	private JButton btnConfirmar = new JButton("CONFIRMAR");
-	private Conexao conec = new Conexao();
+	private JButton btnConfirmar = new JButton("LOGIN");
 
 	/**
 	 * Launch the application.
@@ -59,61 +51,94 @@ public class Janela_Login extends JFrame {
 		setIconImage(new ImageIcon(getClass().getResource("/images/BioGame_Icon.png")).getImage());
 		setTitle("BIO GAME - Perfil");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 325, 175);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		textFieldUsuario = new JTextField();
-		textFieldUsuario.setBounds(130, 78, 190, 20);
+		textFieldUsuario.setBounds(10, 25, 289, 20);
 		contentPane.add(textFieldUsuario);
 		textFieldUsuario.setColumns(10);
+		textFieldUsuario.addKeyListener(new KeyListener() {
+			@Override
+			public void keyTyped(KeyEvent e) {}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+					btnConfirmarOnClick(null);
+				
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {}
+		});		
 		
-		
-		lblUsuario.setBounds(198, 53, 58, 14);
+		lblUsuario.setBounds(10, 11, 58, 14);
 		contentPane.add(lblUsuario);
 		
 		
-		lblSenha.setBounds(204, 138, 52, 14);
+		lblSenha.setBounds(10, 56, 52, 14);
 		contentPane.add(lblSenha);
 		
 		
-		passwordFieldSenha.setBounds(130, 163, 190, 20);
+		passwordFieldSenha.setBounds(10, 72, 289, 20);
 		contentPane.add(passwordFieldSenha);
+		passwordFieldSenha.addKeyListener(new KeyListener() {
+			@Override
+			public void keyTyped(KeyEvent e) {}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+					btnConfirmarOnClick(null);
+				
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {}
+		});		
 		
 		
-		btnConfirmar.setBounds(173, 211, 106, 23);
+		btnConfirmar.setBounds(229, 103, 70, 23);
 		contentPane.add(btnConfirmar);
 		btnConfirmar.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				try {
-					btnConfirmarOnClick(e);
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				btnConfirmarOnClick(e);
 			}
 		});
-		
-	
-	
 	}
 
-public void btnConfirmarOnClick(ActionEvent e) throws SQLException{
-	conec.getConnection();
-	String SQL = "SELECT * from Usuario";
-	//TEM UNS TRENS PARA SEREM FEITOS NESSE ESPAÇO MAS NÃO ENTENDI AINDA COMO FAZ
-	
-	if(textFieldUsuario.getText().equals("conec.resultset.getString(nm_login)") && passwordFieldSenha.getPassword().toString().equals("conec.resultset.getString(nm_senha)")){
-		JOptionPane.showMessageDialog(null, "Logado");
-		Janela_Inicio janelaInicio = new Janela_Inicio();
-		janelaInicio.setVisible(true);
+	public void btnConfirmarOnClick(ActionEvent e){
+		
+		if(textFieldUsuario.getText()==null || textFieldUsuario.getText().equals("")) {
+			JOptionPane.showMessageDialog(this, "Nenhum usuário digitado", "Alerta", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		
+		Result result = new UsuarioServices().login(textFieldUsuario.getText(), new String(passwordFieldSenha.getPassword()));
+		
+		if(result.getCode()>0) {
+			JOptionPane.showMessageDialog(this, result.getMessage(), "", JOptionPane.DEFAULT_OPTION);
+			
+			Janela_Inicio main = new Janela_Inicio((int)result.getObjects().get("tp_permissao"));
+			main.setVisible(true);
+			
+			this.setVisible(false);
+			this.dispose();
+		}
+		else if(result.getCode()==-2) {
+			JOptionPane.showMessageDialog(this, result.getMessage(), "Acesso Negado", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		else {
+			JOptionPane.showMessageDialog(this, result.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+			this.setVisible(false);
+			this.dispose();
+		}
 	}
-	else{
-		JOptionPane.showMessageDialog(null, "Login ou Senha INCORRETOS! Verifique seus dados!");
-	}
-}
 
 }
