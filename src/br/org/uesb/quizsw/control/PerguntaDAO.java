@@ -22,9 +22,11 @@ public class PerguntaDAO implements DAO<Pergunta> {
 				connection.setAutoCommit(false);
 			}
 			
+			int code = Conexao.getCode("pergunta");
+			
 			PreparedStatement pstmt = connection.prepareStatement("INSERT INTO pergunta (cd_pergunta, txt_pergunta, cd_assunto, cd_nivel)"
 																+ " VALUES (?, ?, ?, ?)");
-			pstmt.setInt(1, Conexao.getCode("pergunta"));
+			pstmt.setInt(1, code);
 			pstmt.setString(2, obj.getTxtPergunta());
 			pstmt.setInt(3, obj.getCdAssunto());
 			pstmt.setInt(4, obj.getCdNivel());
@@ -33,7 +35,7 @@ public class PerguntaDAO implements DAO<Pergunta> {
 			if(isConnectionNull)
 				connection.commit();
 			
-			return 1;
+			return code;
 			
 		} catch (Exception e) {
 			e.printStackTrace(System.err);

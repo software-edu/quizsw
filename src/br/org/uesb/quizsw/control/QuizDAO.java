@@ -22,9 +22,11 @@ public class QuizDAO implements DAO<Quiz> {
 				connection.setAutoCommit(false);
 			}
 			
+			int code = Conexao.getCode("quiz");
+			
 			PreparedStatement pstmt = connection.prepareStatement("INSERT INTO quiz (cd_quiz, nm_quiz, qtd_tempo, qtd_erro, blb_imagem)"
 																+ " VALUES (?, ?, ?, ?, ?)");
-			pstmt.setInt(1, Conexao.getCode("quiz"));
+			pstmt.setInt(1, code);
 			pstmt.setString(2, obj.getNmQuiz());
 			pstmt.setInt(3, obj.getQtdTempo());
 			pstmt.setInt(4, obj.getQtdErro());
@@ -34,7 +36,7 @@ public class QuizDAO implements DAO<Quiz> {
 			if(isConnectionNull)
 				connection.commit();
 			
-			return 1;
+			return code;
 			
 		} catch (Exception e) {
 			e.printStackTrace(System.err);

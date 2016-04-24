@@ -96,7 +96,7 @@ public class QuizPerguntaDAO implements DAO<QuizPergunta> {
 				connection.setAutoCommit(false);
 			}
 			
-			PreparedStatement pstmt = connection.prepareStatement("DELETE FROM nivel WHERE cd_quiz=? AND cd_pergunta=?");
+			PreparedStatement pstmt = connection.prepareStatement("DELETE FROM quiz_pergunta WHERE cd_quiz=? AND cd_pergunta=?");
 			pstmt.setInt(1, obj.getCdQuiz());
 			pstmt.setInt(1, obj.getCdPergunta());
 			
@@ -128,7 +128,7 @@ public class QuizPerguntaDAO implements DAO<QuizPergunta> {
 				connection = Conexao.getConnection();
 			}
 			
-			PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM nivel "
+			PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM quiz_pergunta "
 																+ " WHERE 1=1 "
 																+ criterias);
 			

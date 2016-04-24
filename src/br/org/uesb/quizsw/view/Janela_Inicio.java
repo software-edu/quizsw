@@ -59,11 +59,11 @@ public class Janela_Inicio extends JFrame {
 		JMenuItem mntmSairDoJogo = new JMenuItem("Sair do Jogo");
 		
 		//sai do jogo
-				mntmSairDoJogo.addActionListener(new ActionListener(){
-					public void actionPerformed(ActionEvent evento){
-						System.exit(0);
-					}
-				});
+		mntmSairDoJogo.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent evento){
+				System.exit(0);
+			}
+		});
 				
 		mnMenu.add(mntmSairDoJogo);
 		

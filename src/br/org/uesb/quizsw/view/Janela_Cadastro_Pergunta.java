@@ -231,7 +231,7 @@ public class Janela_Cadastro_Pergunta extends JFrame {
 			JOptionPane.showMessageDialog(this, result.getMessage(), "Info", JOptionPane.INFORMATION_MESSAGE);
 			
 			if(parent!=null) {
-				//TODO: load jList do parent
+				parent.addPerguntaCallback((Pergunta)result.getObjects().get("pergunta"));
 				
 				this.setVisible(false);
 				this.dispose();

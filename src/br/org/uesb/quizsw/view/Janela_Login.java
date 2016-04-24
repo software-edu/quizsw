@@ -68,7 +68,7 @@ public class Janela_Login extends JFrame {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				if(e.getKeyCode()==KeyEvent.VK_ENTER)
-					btnConfirmarOnClick(null);
+					btnConfirmarOnClick();
 				
 			}
 			
@@ -93,8 +93,7 @@ public class Janela_Login extends JFrame {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				if(e.getKeyCode()==KeyEvent.VK_ENTER)
-					btnConfirmarOnClick(null);
-				
+					btnConfirmarOnClick();
 			}
 			
 			@Override
@@ -107,12 +106,12 @@ public class Janela_Login extends JFrame {
 		btnConfirmar.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				btnConfirmarOnClick(e);
+				btnConfirmarOnClick();
 			}
 		});
 	}
 
-	public void btnConfirmarOnClick(ActionEvent e){
+	public void btnConfirmarOnClick(){
 		
 		if(textFieldUsuario.getText()==null || textFieldUsuario.getText().equals("")) {
 			JOptionPane.showMessageDialog(this, "Nenhum usuário digitado", "Alerta", JOptionPane.WARNING_MESSAGE);

@@ -165,14 +165,10 @@ public class UsuarioServices implements Service<Usuario> {
 			
 			ArrayList<HashMap<String, Object>> lst = this.find(ctr, connection);
 			if(lst.isEmpty())
-				return new Result(-3, "Usuário ou senha inválido.");
-			
-			Usuario usuario = new UsuarioDAO().get((int)lst.get(0).get("cd_usuario"), connection);
-			if(usuario==null)
 				return new Result(-2, "Usuário ou senha inválido.");
 			
 			HashMap<String, Object> objects = new HashMap<>();
-			objects.put("usuario", usuario);
+			objects.put("tp_permissao", (int)lst.get(0).get("tp_permissao"));
 			
 			return new Result(1, "", objects);
 		}
