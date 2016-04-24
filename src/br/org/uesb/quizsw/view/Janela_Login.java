@@ -124,8 +124,7 @@ public class Janela_Login extends JFrame {
 		if(result.getCode()>0) {
 			JOptionPane.showMessageDialog(this, result.getMessage(), "", JOptionPane.DEFAULT_OPTION);
 			
-			Janela_Inicio main = new Janela_Inicio();
-			main.TP_PERMISSAO_LOGADA = (int)result.getObjects().get("tp_permissao");
+			Janela_Inicio main = new Janela_Inicio((int)result.getObjects().get("tp_permissao"));
 			main.setVisible(true);
 			
 			this.setVisible(false);

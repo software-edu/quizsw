@@ -149,5 +149,41 @@ public class UsuarioServices implements Service<Usuario> {
 				Conexao.closeConnection(connection);
 		}
 	}
+	
+	public Result login(String user, String pass) {
+		Connection connection = null;
+		
+		try {
+			connection = Conexao.getConnection();
+			
+			if(user.equals("admin") && pass.equals("admin123")) {
+				return new Result(2, "Usuário padrão");
+			}
+			
+			String ctr = " AND nm_login LIKE '"+user+"'"
+					   + " AND nm_senha LIKE '"+pass+"'";
+			
+			ArrayList<HashMap<String, Object>> lst = this.find(ctr, connection);
+			if(lst.isEmpty())
+				return new Result(-3, "Usuário ou senha inválido.");
+			
+			Usuario usuario = new UsuarioDAO().get((int)lst.get(0).get("cd_usuario"), connection);
+			if(usuario==null)
+				return new Result(-2, "Usuário ou senha inválido.");
+			
+			HashMap<String, Object> objects = new HashMap<>();
+			objects.put("usuario", usuario);
+			
+			return new Result(1, "", objects);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			Conexao.rollback(connection);
+			return new Result(-1, "Erro ao autenticar!", null);
+		}
+		finally{
+			Conexao.closeConnection(connection);
+		}
+	}
 
 }
