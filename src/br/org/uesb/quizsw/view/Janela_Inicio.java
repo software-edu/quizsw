@@ -110,7 +110,7 @@ public class Janela_Inicio extends JFrame {
 		JMenuItem mntmPergunta = new JMenuItem("Pergunta");
 		mntmPergunta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Janela_Cadastro_Pergunta Perguntas = new Janela_Cadastro_Pergunta();
+				Janela_Cadastro_Pergunta Perguntas = new Janela_Cadastro_Pergunta(null);
 				Perguntas.setVisible(true);
 			}
 		});
