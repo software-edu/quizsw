@@ -1,25 +1,25 @@
 package br.org.uesb.quizsw.view;
 
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-import br.org.uesb.quizsw.control.UsuarioServices;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import java.awt.Toolkit;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JMenuItem;
+import java.awt.Window.Type;
 
 public class Janela_Inicio extends JFrame {
 
 	private JPanel contentPane;
-	private int tpPermissao;
 	
 	/**
 	 * Launch the application.
@@ -28,7 +28,7 @@ public class Janela_Inicio extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Janela_Inicio frame = new Janela_Inicio(UsuarioServices.TP_PERMISSAO_ADMINISTRADOR);
+					Janela_Inicio frame = new Janela_Inicio();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -40,10 +40,7 @@ public class Janela_Inicio extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Janela_Inicio(int tpPermissao) {
-		
-		this.tpPermissao = tpPermissao;
-		
+	public Janela_Inicio() {
 		setResizable(false);
 		setUndecorated(true);//retira barra de titulos
 		setIconImage(new ImageIcon(getClass().getResource("/images/BioGame_Icon.png")).getImage());
@@ -79,7 +76,6 @@ public class Janela_Inicio extends JFrame {
 			}
 		});
 		mnQuiz.add(mntmNovo);
-		mntmNovo.setVisible(tpPermissao==UsuarioServices.TP_PERMISSAO_ADMINISTRADOR);
 		
 		JMenuItem mntmBuscar = new JMenuItem("Buscar");
 		mnQuiz.add(mntmBuscar);
@@ -87,15 +83,14 @@ public class Janela_Inicio extends JFrame {
 		//menu de cadastros
 		JMenu mnCadastros = new JMenu("CADASTROS");
 		menuBar.add(mnCadastros);
-		mnCadastros.setVisible(tpPermissao==UsuarioServices.TP_PERMISSAO_ADMINISTRADOR);
 		
 		//cadastro de assuntos
 		//encaminha para a tela Cadastro de Assuntos
 		JMenuItem mntmAssunto = new JMenuItem("Assunto");
 		mntmAssunto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Janela_Cadastro_Assunto assunto = new Janela_Cadastro_Assunto();
-				assunto.setVisible(true);
+				Janela_Cadastro_Assunto Assunto = new Janela_Cadastro_Assunto();
+				Assunto.setVisible(true);
 			}
 		});		
 		mnCadastros.add(mntmAssunto);
@@ -141,12 +136,12 @@ public class Janela_Inicio extends JFrame {
 		mnAjuda.add(mntmSobreOJogo);
 		
 		//encaminha para a tela sobre
-		mntmSobreOJogo.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent eventoSobre){
-				Janela_Sobre Sobre = new Janela_Sobre();
-				Sobre.setVisible(true);
-			}
-		});
+			mntmSobreOJogo.addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent eventoSobre){
+					Janela_Sobre Sobre = new Janela_Sobre();
+					Sobre.setVisible(true);
+				}
+			});
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
