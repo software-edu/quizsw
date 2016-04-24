@@ -48,6 +48,8 @@ public class Janela_Cadastro_Assunto extends JFrame {
 	private ArrayList<HashMap<String, Object>> listAssunto;
 	private ArrayList<HashMap<String, Object>> listAssuntoSuperior;
 	
+	public int tpPermissao;
+	
 	AssuntoServices service = new AssuntoServices();
 
 	/**
@@ -90,8 +92,6 @@ public class Janela_Cadastro_Assunto extends JFrame {
 				
 				if(!jlAssuntos.isSelectionEmpty()) {
 					tfAssunto.setText(jlAssuntos.getSelectedValue());
-					
-					System.out.println((int)listAssunto.get(jlAssuntos.getSelectedIndex()).get("cd_assunto"));
 					
 					cbAssuntoSuperior.setSelectedIndex(
 							getSuperiorIndex((int)listAssunto.get(jlAssuntos.getSelectedIndex()).get("cd_assunto"))

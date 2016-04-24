@@ -48,6 +48,8 @@ public class Janela_Cadastro_Pergunta extends JFrame {
 	private JButton btnCancelar = new JButton("Cancelar");
 	
 	public int cdPergunta = 0;
+	
+	private Janela_Cadastro_Quiz parent;
 
 	/**
 	 * Launch the application.
@@ -56,7 +58,7 @@ public class Janela_Cadastro_Pergunta extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Janela_Cadastro_Pergunta frame = new Janela_Cadastro_Pergunta();
+					Janela_Cadastro_Pergunta frame = new Janela_Cadastro_Pergunta(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -68,7 +70,10 @@ public class Janela_Cadastro_Pergunta extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Janela_Cadastro_Pergunta() {
+	public Janela_Cadastro_Pergunta(Janela_Cadastro_Quiz parent) {
+		
+		this.parent = parent;
+		
 		setIconImage(new ImageIcon(getClass().getResource("/images/BioGame_Icon.png")).getImage());
 		setTitle("Pergunta");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -224,6 +229,13 @@ public class Janela_Cadastro_Pergunta extends JFrame {
 		}
 		else {
 			JOptionPane.showMessageDialog(this, result.getMessage(), "Info", JOptionPane.INFORMATION_MESSAGE);
+			
+			if(parent!=null) {
+				
+				this.setVisible(false);
+				this.dispose();
+			}
+				
 		}
 		
 	}
