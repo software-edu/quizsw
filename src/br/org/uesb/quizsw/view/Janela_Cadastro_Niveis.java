@@ -164,6 +164,8 @@ public class Janela_Cadastro_Niveis extends JFrame {
 	public void loadListNivel() {
 		listNiveis = new NivelServices().getAll();
 		
+		//Nivel n = new Nivel((int)listNiveis.get(tabela.getSelectedIndex).get("cd_nivel"), (String)listNiveis.get(0).get("nm_nivel"));
+		
 		if(listNiveis==null)
 			return;
 		
