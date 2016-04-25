@@ -31,6 +31,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JScrollBar;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.JButton;
 
 public class Janela_Cadastro_Quiz extends JFrame {
 
@@ -43,7 +44,8 @@ public class Janela_Cadastro_Quiz extends JFrame {
 	private JLabel lblTitulo = new JLabel("Titulo do Quiz");
 	private JLabel lblTempo = new JLabel("Tempo");		
 	private Button btnSalvar = new Button("Salvar");
-	private Button btnAdicionarPerguntas = new Button("+");
+	private Button btnAdicionarPerguntas = new Button("Adicionar Nova Pergunta");
+	private Button btnBuscarPerguntaExistente = new Button("Buscar Pergunta Existente");
 	private JScrollPane spListaPerguntas = new JScrollPane();
 	private JList lfPerguntas = new JList(listadePerguntas);
 	private JSpinner spinTempo = new JSpinner();
@@ -75,7 +77,7 @@ public class Janela_Cadastro_Quiz extends JFrame {
 		setIconImage(new ImageIcon(getClass().getResource("/images/BioGame_Icon.png")).getImage());
 		setTitle("Quiz");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 600, 499);
+		setBounds(100, 100, 741, 499);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -84,17 +86,17 @@ public class Janela_Cadastro_Quiz extends JFrame {
 		lblTitulo.setBounds(20, 11, 46, 14);
 		contentPane.add(lblTitulo);
 		
-		tfTitulo.setBounds(20, 32, 386, 20);
+		tfTitulo.setBounds(20, 32, 522, 20);
 		contentPane.add(tfTitulo);
 		tfTitulo.setColumns(10);
 		
-		lblTempo.setBounds(416, 11, 46, 14);
+		lblTempo.setBounds(554, 11, 46, 14);
 		contentPane.add(lblTempo);
 		
-		lblErros.setBounds(528, 11, 46, 14);
+		lblErros.setBounds(666, 11, 46, 14);
 		contentPane.add(lblErros);
 		
-		btnSalvar.setBounds(504, 428, 70, 22);
+		btnSalvar.setBounds(615, 428, 100, 22);
 		contentPane.add(btnSalvar);
 		btnSalvar.addActionListener(new ActionListener() {
 			@Override
@@ -104,7 +106,7 @@ public class Janela_Cadastro_Quiz extends JFrame {
 			}
 		});
 		
-		btnAdicionarPerguntas.setBounds(548, 82, 25, 25);
+		btnAdicionarPerguntas.setBounds(548, 82, 167, 25);
 		contentPane.add(btnAdicionarPerguntas);
 		btnAdicionarPerguntas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -119,19 +121,34 @@ public class Janela_Cadastro_Quiz extends JFrame {
 		lfPerguntas.setVisibleRowCount(5);
 		
 		spinTempo.setModel(new SpinnerNumberModel(0, 0, 100, 1));//o spinner tem mínimo 0 e máximo 100
-		spinTempo.setBounds(416, 32, 46, 20);
+		spinTempo.setBounds(554, 32, 46, 20);
 		contentPane.add(spinTempo);
 		
 		spinErros.setModel(new SpinnerNumberModel(0, 0, 5, 1)); //o spinner tem minimo 0 e maximo 5
-		spinErros.setBounds(528, 32, 46, 20);
+		spinErros.setBounds(666, 32, 46, 20);
 		contentPane.add(spinErros);
 		
 		lblPerguntas.setBounds(20, 63, 100, 14);
 		contentPane.add(lblPerguntas);
 		
-		lblMin.setBounds(472, 35, 46, 14);
+		lblMin.setBounds(610, 35, 46, 14);
 		contentPane.add(lblMin);
+		
+		
+		btnBuscarPerguntaExistente.setBounds(548, 119, 164, 23);
+		contentPane.add(btnBuscarPerguntaExistente);
+		//encaminha para a tela de busca de perguntas existentes em outros quiz
+		btnBuscarPerguntaExistente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				buscarPerguntaOnClick(e);
+			}
+		});
 
+	}
+	
+	private void buscarPerguntaOnClick(ActionEvent e) {
+		Janela_BuscarPerguntas_Quiz Busca = new Janela_BuscarPerguntas_Quiz(this);
+		Busca.setVisible(true);
 	}
 	
 	private void addPerguntaOnClick(ActionEvent e) {
