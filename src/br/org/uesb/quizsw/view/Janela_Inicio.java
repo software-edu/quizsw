@@ -83,6 +83,13 @@ public class Janela_Inicio extends JFrame {
 		
 		JMenuItem mntmBuscar = new JMenuItem("Buscar");
 		mnQuiz.add(mntmBuscar);
+		mntmBuscar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Janela_Busca_Quiz jbq = new  Janela_Busca_Quiz();
+				jbq.setVisible(true);
+			}
+		});
 		
 		//menu de cadastros
 		JMenu mnCadastros = new JMenu("CADASTROS");
