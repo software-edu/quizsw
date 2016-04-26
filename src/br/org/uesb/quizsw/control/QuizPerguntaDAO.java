@@ -128,7 +128,7 @@ public class QuizPerguntaDAO implements DAO<QuizPergunta> {
 				connection = Conexao.getConnection();
 			}
 			
-			PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM quiz_pergunta "
+			PreparedStatement pstmt = connection.prepareStatement("SELECT A.* FROM quiz_pergunta A"
 																+ " WHERE 1=1 "
 																+ criterias);
 			

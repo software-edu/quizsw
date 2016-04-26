@@ -1,37 +1,30 @@
 package br.org.uesb.quizsw.view;
 
+import java.awt.Button;
+//import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
 
 import br.org.uesb.quizsw.control.Pergunta;
-import br.org.uesb.quizsw.control.PerguntaServices;
 import br.org.uesb.quizsw.control.Quiz;
 import br.org.uesb.quizsw.control.QuizServices;
 import br.org.uesb.quizsw.util.Result;
-
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-
-import java.awt.Button;
-//import java.awt.Dimension;
-
-import javax.swing.JScrollPane;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.awt.event.ActionEvent;
-import javax.swing.JScrollBar;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
-import javax.swing.JButton;
 
 public class Janela_Cadastro_Quiz extends JFrame {
 
