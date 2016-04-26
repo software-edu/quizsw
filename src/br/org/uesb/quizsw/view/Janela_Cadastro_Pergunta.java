@@ -158,18 +158,18 @@ public class Janela_Cadastro_Pergunta extends JFrame {
 		lblNivel.setBounds(396, 299, 68, 14);
 		contentPane.add(lblNivel);
 		
-		cbNivel.setBounds(396, 334, 141, 20);
+		cbNivel.setBounds(396, 324, 141, 20);
 		contentPane.add(cbNivel);
 		
 		JLabel lblAssunto = new JLabel("Assunto:");
 		lblAssunto.setBounds(10, 299, 83, 14);
 		contentPane.add(lblAssunto);
 		
-		cbAssunto.setBounds(10, 334, 283, 20);
+		cbAssunto.setBounds(10, 324, 283, 20);
 		contentPane.add(cbAssunto);
 		
 		JLabel lblImagem = new JLabel("Imagem:");
-		lblImagem.setBounds(10, 414, 68, 14);
+		lblImagem.setBounds(10, 391, 68, 14);
 		contentPane.add(lblImagem);
 		
 		loadAssunto();

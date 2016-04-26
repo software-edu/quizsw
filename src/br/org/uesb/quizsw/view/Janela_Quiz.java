@@ -38,6 +38,8 @@ public class Janela_Quiz extends JFrame {
 	private int index = 0;
 	private int nrErros = 0;
 	private int nrAcertos = 0;
+	
+	private Timer t;
 
 	/**
 	 * Create the frame.
@@ -83,7 +85,7 @@ public class Janela_Quiz extends JFrame {
 		
 		loadPergunta();
 		
-		Timer t = new Timer((int)quiz.get("qtd_tempo"), this);
+		t = new Timer((int)quiz.get("qtd_tempo"), this);
 		t.start();
 	}
 	
@@ -123,6 +125,7 @@ public class Janela_Quiz extends JFrame {
 				}
 				else {
 					nrErros++;
+					JOptionPane.showMessageDialog(this, "Tente novamente", "", JOptionPane.WARNING_MESSAGE);
 				}
 				clear();
 				loadPergunta();
@@ -135,6 +138,8 @@ public class Janela_Quiz extends JFrame {
 		clear();
 		JOptionPane.showMessageDialog(this, (message!=null?message+"\n" : "")+
 				"Acertos: "+nrAcertos+"\nErros: "+nrErros);
+		t.interrupt();
+		
 		this.setVisible(false);
 		this.dispose();
 	}

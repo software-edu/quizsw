@@ -155,9 +155,11 @@ public class UsuarioServices implements Service<Usuario> {
 		
 		try {
 			connection = Conexao.getConnection();
+			HashMap<String, Object> objects = new HashMap<>();
 			
 			if(user.equals("admin") && pass.equals("admin123")) {
-				return new Result(2, "Usuário padrão");
+				objects.put("tp_permissao", TP_PERMISSAO_ADMINISTRADOR);
+				return new Result(2, "Usuário padrão", objects);
 			}
 			
 			String ctr = " AND nm_login LIKE '"+user+"'"
@@ -167,7 +169,6 @@ public class UsuarioServices implements Service<Usuario> {
 			if(lst.isEmpty())
 				return new Result(-2, "Usuário ou senha inválido.");
 			
-			HashMap<String, Object> objects = new HashMap<>();
 			objects.put("tp_permissao", (int)lst.get(0).get("tp_permissao"));
 			
 			return new Result(1, "", objects);
