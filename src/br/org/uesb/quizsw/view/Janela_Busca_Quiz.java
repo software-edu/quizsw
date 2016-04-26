@@ -3,9 +3,12 @@ package br.org.uesb.quizsw.view;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -25,7 +28,7 @@ public class Janela_Busca_Quiz extends JFrame {
 	private JButton btnBuscar;
 	private JTable jtQuiz;
 	private Object[] columns = {"Quiz"};
-	private DefaultTableModel dtm = new DefaultTableModel(columns, 0);
+	private DefaultTableModel dtm;
 
 	/**
 	 * Launch the application.
@@ -47,7 +50,9 @@ public class Janela_Busca_Quiz extends JFrame {
 	 * Create the frame.
 	 */
 	public Janela_Busca_Quiz() {
-		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setTitle("Busca de Quiz");
+		setIconImage(new ImageIcon(getClass().getResource("/images/BioGame_Icon.png")).getImage());
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 600, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -59,12 +64,12 @@ public class Janela_Busca_Quiz extends JFrame {
 		contentPane.add(lbNmQuiz);
 		
 		tfNmQuiz = new JTextField();
-		tfNmQuiz.setBounds(10, 27, 460, 24);
+		tfNmQuiz.setBounds(10, 27, 465, 24);
 		contentPane.add(tfNmQuiz);
 		tfNmQuiz.setColumns(10);
 		
 		btnBuscar = new JButton("Buscar");
-		btnBuscar.setBounds(485, 28, 89, 23);
+		btnBuscar.setBounds(485, 27, 89, 24);
 		contentPane.add(btnBuscar);
 		
 		btnBuscar.addActionListener(new ActionListener() {
@@ -76,17 +81,52 @@ public class Janela_Busca_Quiz extends JFrame {
 		});
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 73, 564, 221);
+		scrollPane.setBounds(10, 73, 564, 243);
 		contentPane.add(scrollPane);
+		
+		dtm = new DefaultTableModel(columns, 0);
 		
 		jtQuiz = new JTable();
 		scrollPane.setViewportView(jtQuiz);
 		jtQuiz.setModel(dtm);
+		jtQuiz.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(jtQuiz.getSelectedRow()>-1) 
+					btnAbrir.setEnabled(true);
+			}
+		});
+		
+		btnAbrir = new JButton("Abrir");
+		btnAbrir.setBounds(485, 327, 89, 23);
+		contentPane.add(btnAbrir);
+		btnAbrir.setEnabled(false);
+		btnAbrir.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				btnAbrirOnClick(e);
+				
+			}
+		});
 		
 	}
 
 	private ArrayList<HashMap<String, Object>> lstQuiz = null;
-	private JScrollPane scrollPane;;
+	private JScrollPane scrollPane;
+	private JButton btnAbrir;;
 	private void btnBuscarOnClick(ActionEvent e) {
 		clearTable();
 		
@@ -99,6 +139,12 @@ public class Janela_Busca_Quiz extends JFrame {
 		
 		jtQuiz.setModel(dtm);
 	}
+
+	private void btnAbrirOnClick(ActionEvent e) {
+		Janela_Quiz quiz = new Janela_Quiz(lstQuiz.get(jtQuiz.getSelectedRow()));
+		quiz.setVisible(true);
+		
+	}
 	
 	private void clearTable() {
 		if(lstQuiz!=null) {
@@ -106,6 +152,8 @@ public class Janela_Busca_Quiz extends JFrame {
 				dtm.removeRow(i);
 			}
 			lstQuiz = null;
+			
+			btnAbrir.setEnabled(false);
 		}
 	}
 }

@@ -72,10 +72,12 @@ public class QuizPerguntaServices implements Service<QuizPergunta> {
 		PreparedStatement pstmt;
 		try {
 			pstmt = connection.prepareStatement(
-					"SELECT A.* "
+					"SELECT A.*, B.txt_pergunta "
 					+ " FROM quiz_pergunta A "
+					+ " JOIN pergunta B ON (A.cd_pergunta = B.cd_pergunta)"
 					+ " WHERE 1=1 "
 					+ (criterios!=null ? criterios : "")
+					+ " ORDER BY A.nr_ordem"
 			);
 			return Util.resultSetToList(pstmt.executeQuery());
 		}

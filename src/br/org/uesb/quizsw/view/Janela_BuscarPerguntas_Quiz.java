@@ -81,7 +81,7 @@ public class Janela_BuscarPerguntas_Quiz extends JFrame {
 		spResultadosDasPerguntas.setViewportView(listResultadoDasPerguntas);
 		btnBuscarPergunta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//loadListBuscadePerguntas();
+				btnBuscarPergunta(e);
 				
 			}
 		});
@@ -118,9 +118,24 @@ public class Janela_BuscarPerguntas_Quiz extends JFrame {
 	}
 	
 	private void btnBuscarPergunta(ActionEvent e){
-		String pergunta = tfPergunta.getText();
+//		String pergunta = tfPergunta.getText();
 		
-		ArrayList<HashMap<String,Object>> result = new PerguntaServices().find("AND A.txtPergunta LIKE '%"+pergunta+"%'");
+		ArrayList<HashMap<String,Object>> result = new PerguntaServices().find(" AND A.txt_pergunta LIKE '%"+tfPergunta.getText().trim()+"%'");
+		
+//		Pergunta pergunta = new Pergunta((int)result.get(listResultadoDasPerguntas.getSelectedIndex()).get("cdPergunta"),(String)result.get(listResultadoDasPerguntas.getSelectedIndex()).get("txt_pergunta"), (int)result.get(listResultadoDasPerguntas.getSelectedIndex()).get("cd_assunto"), (int)result.get(listResultadoDasPerguntas.getSelectedIndex()).get("cd_nivel"));
+
+		
+		//Nivel n = new Nivel((int)listNiveis.get(tabela.getSelectedIndex).get("cd_nivel"), (String)listNiveis.get(0).get("nm_nivel"));
+		
+		if(listBuscarPerguntas==null)
+			return;
+		
+		DefaultListModel<String> jListModel = new DefaultListModel<>();
+		for(int i=0; i<result.size(); i++) {
+			jListModel.addElement((String)result.get(i).get("txt_pergunta"));
+		}
+		
+		listResultadoDasPerguntas.setModel(jListModel);
 		
 	}
 }
