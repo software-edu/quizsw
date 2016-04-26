@@ -76,7 +76,7 @@ public class Janela_Login extends JFrame {
 			public void keyPressed(KeyEvent e) {}
 		});		
 		
-		lblUsuario.setBounds(10, 11, 58, 14);
+		lblUsuario.setBounds(10, 11, 68, 14);
 		contentPane.add(lblUsuario);
 		
 		
@@ -101,7 +101,7 @@ public class Janela_Login extends JFrame {
 		});		
 		
 		
-		btnConfirmar.setBounds(229, 103, 70, 23);
+		btnConfirmar.setBounds(219, 103, 80, 23);
 		contentPane.add(btnConfirmar);
 		btnConfirmar.addActionListener(new ActionListener(){
 			@Override
@@ -114,7 +114,7 @@ public class Janela_Login extends JFrame {
 	public void btnConfirmarOnClick(){
 		
 		if(textFieldUsuario.getText()==null || textFieldUsuario.getText().equals("")) {
-			JOptionPane.showMessageDialog(this, "Nenhum usuário digitado", "Alerta", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Nenhum usuï¿½rio digitado", "Alerta", JOptionPane.WARNING_MESSAGE);
 			return;
 		}
 		
