@@ -119,14 +119,12 @@ public class Janela_Quiz extends JFrame {
 				if((int)respostas.get(i).get("lg_correto")==1) {
 					nrAcertos++;
 					index++;
-					clear();
-					loadPergunta();
 				}
 				else {
 					nrErros++;
-					clear();
-					loadPergunta();
 				}
+				clear();
+				loadPergunta();
 			}
 		}
 		
