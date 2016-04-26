@@ -60,6 +60,7 @@ public class Janela_Quiz extends JFrame {
 		lbNmQuiz.setText((String)quiz.get("nm_quiz"));
 		
 		tpTxtPergunta.setBounds(31, 54, 543, 70);
+		tpTxtPergunta.setEditable(false);
 		contentPane.add(tpTxtPergunta);
 		
 		pnResposta.setBounds(31, 135, 543, 160);
