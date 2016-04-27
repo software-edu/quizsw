@@ -40,8 +40,8 @@ public class Janela_Cadastro_Usuario extends JFrame {
 	private JLabel lblLogin = new JLabel("Login");
 	private JLabel lblSenha = new JLabel("Senha");
 	private JLabel lblRepetirSenha = new JLabel("Repetir Senha");
-	private JLabel lblPermissao = new JLabel("Permiss„o");
-	private JButton btnNovoUsuario = new JButton("Novo Usu·rio");
+	private JLabel lblPermissao = new JLabel("Permiss√£o");
+	private JButton btnNovoUsuario = new JButton("Novo Usu√°rio");
 	private JRadioButton rdbtnAdministrador = new JRadioButton("Administrador");
 	private JRadioButton rdbtnOperador = new JRadioButton("Operador");
 	private ButtonGroup bgPermissoes = new ButtonGroup(); //cria um ButtonGroup
@@ -51,6 +51,7 @@ public class Janela_Cadastro_Usuario extends JFrame {
 	/**
 	 * Launch the application.
 	 */
+	 //Teste
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -69,7 +70,7 @@ public class Janela_Cadastro_Usuario extends JFrame {
 	 */
 	public Janela_Cadastro_Usuario() {
 		setIconImage(new ImageIcon(getClass().getResource("/images/BioGame_Icon.png")).getImage());
-		setTitle("Usu·rios");
+		setTitle("Usu√°rios");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 577, 458);
 		contentPane = new JPanel();
